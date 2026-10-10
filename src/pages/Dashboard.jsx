@@ -1,8 +1,25 @@
 import { Box, Grid, Card, CardContent, Typography } from '@mui/material';
 import { MenuBook, CheckCircle, Bookmark, Add } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getAllBooks } from '../service/Book';
 
 export default function Dashboard() {
+  const [books, setBooks] = useState([]);
+
+  const TotalBooks = books.length;
+
+  const availableBooks = books.filter((book) => book.status === 'AVAILABLE').length
+
+  const borrowedBokos = books.filter((book) => book.status === 'BORROWED').length
+  useEffect(() => {
+    getAllBooks().then((res) => {
+      setBooks(res.data);
+    }).catch((error) => {
+      console.log(error);
+    })
+  }, [])
+
   return (
     <Box sx={{ p: 4, bgcolor: '#f8f9fc', minHeight: '100vh' }}>
       <Box
@@ -41,9 +58,9 @@ export default function Dashboard() {
 
       <Grid container spacing={3}>
         {[
-          { title: 'Total Books', icon: <MenuBook />, color: '#5b4fd6' },
-          { title: 'Available', icon: <CheckCircle />, color: '#2e7d32' },
-          { title: 'Borrowed', icon: <Bookmark />, color: '#ed8b00' }
+          { title: 'Total Books', value: TotalBooks, icon: <MenuBook />, color: '#5b4fd6' },
+          { title: 'Available', value: availableBooks, icon: <CheckCircle />, color: '#2e7d32' },
+          { title: 'Borrowed', value: borrowedBokos, icon: <Bookmark />, color: '#ed8b00' }
         ].map((item) => (
           <Grid item xs={12} sm={6} md={4} key={item.title}>
             <Card
@@ -55,7 +72,13 @@ export default function Dashboard() {
                   {item.icon}
                 </Box>
                 <Typography fontWeight="medium">
-                  {item.title}
+                  <Typography fontWeight="medium">
+                    {item.title}
+                  </Typography>
+
+                  <Typography variant="h5" fontWeight="bold">
+                    {item.value}
+                  </Typography>
                 </Typography>
               </CardContent>
             </Card>
@@ -71,6 +94,11 @@ export default function Dashboard() {
           <Typography variant="h6" fontWeight="bold">
             Recently Added Books
           </Typography>
+
+{books.slice(-3).reverse().map((book)=>(
+  
+))}
+
 
           <Box sx={{ py: 6, textAlign: 'center', color: 'text.secondary' }}>
             <MenuBook sx={{ fontSize: 45, mb: 1 }} />

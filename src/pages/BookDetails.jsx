@@ -15,11 +15,11 @@ export default function BookDetails() {
         <p><strong>Category:</strong> —</p>
         <p><strong>Date d'ajout:</strong> —</p>
         <p><strong>Status:</strong> —</p>
+        
+        <Link to="/books" className="back-btn">  Back to Books </Link>
 
-        <Link to="/books" className="back-btn">
-          Back to Books
-        </Link>
       </div>
+
     </div>
   );
 }
