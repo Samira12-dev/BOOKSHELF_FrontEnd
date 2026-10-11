@@ -38,7 +38,7 @@ export default function Books() {
           className="search-input"
         />
 
-        <Link to="/addBook" className="add-book-btn">
+        <Link to="/book/add" className="add-book-btn">
           Add Book
         </Link>
       </div>
@@ -74,9 +74,9 @@ export default function Books() {
                   <td>{book.dateAjout}</td>
                   <td>{book.status}</td>
                   <td>
-                    <Link to={`/books/${book.id}`} className="action-link view-link" >Afficher</Link>
-                    <Link to={`/books/edit/${book.id}`}  className="action-link edit-link" >Modifier</Link>
-                    <button onClick={()=>handleDelete(book.id)}  className="action-link delete-link" >Supprimer</button>
+                    <Link to={`/books/${book.id}`} className="action-link view-link" >View</Link>
+                    <Link to={`/books/edit/${book.id}`}  className="action-link edit-link" >Modify</Link>
+                    <button onClick={()=>handleDelete(book.id)}  className="action-link delete-link" >Delete</button>
                   </td>
                 </tr>
               ))

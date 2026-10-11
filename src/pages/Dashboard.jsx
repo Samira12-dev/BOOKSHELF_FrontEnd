@@ -12,6 +12,8 @@ export default function Dashboard() {
   const availableBooks = books.filter((book) => book.status === 'AVAILABLE').length
 
   const borrowedBokos = books.filter((book) => book.status === 'BORROWED').length
+
+  const lastThreeBooks = [...books].reverse().slice(0, 3);
   useEffect(() => {
     getAllBooks().then((res) => {
       setBooks(res.data);
@@ -71,7 +73,6 @@ export default function Dashboard() {
                 <Box sx={{ color: item.color, display: 'flex' }}>
                   {item.icon}
                 </Box>
-                <Typography fontWeight="medium">
                   <Typography fontWeight="medium">
                     {item.title}
                   </Typography>
@@ -79,33 +80,72 @@ export default function Dashboard() {
                   <Typography variant="h5" fontWeight="bold">
                     {item.value}
                   </Typography>
-                </Typography>
+                
               </CardContent>
             </Card>
           </Grid>
         ))}
       </Grid>
 
+
       <Card
         elevation={0}
-        sx={{ mt: 4, border: '1px solid #e5e7eb', borderRadius: 3 }}
+  sx={{
+    mt: 3,
+    maxWidth: 800,
+    mx: 'auto',
+    border: '1px solid #e5e7eb',
+    borderRadius: 2,
+       display: 'flex',
+    justifyContent: 'center'
+  }}
       >
-        <CardContent sx={{ p: 3 }}>
-          <Typography variant="h6" fontWeight="bold">
+        <CardContent sx={{ p: 2 }}>
+          <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
             Recently Added Books
           </Typography>
 
-{books.slice(-3).reverse().map((book)=>(
-  
-))}
+          {lastThreeBooks.length === 0 ? (
+            <Typography color="text.secondary">
+              No books to display
+            </Typography>
+          ) : (
+            <Grid container spacing={2}>
+              {lastThreeBooks.map((book) => (
+                <Grid item xs={12} sm={4} key={book.id}>
+                  <Box
+                    sx={{
+                      p: 2,
+                      border: '1px solid #eee',
+                      borderRadius: 2
+                    }}
+                  >
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <MenuBook color="primary" />
+                      <Typography fontWeight="bold" noWrap>
+                        {book.titre}
+                      </Typography>
+                    </Box>
 
+                    <Typography color="text.secondary" variant="body2" sx={{ mt: 1 }}>
+                      {book.auteur || 'Auteur inconnu'}
+                    </Typography>
 
-          <Box sx={{ py: 6, textAlign: 'center', color: 'text.secondary' }}>
-            <MenuBook sx={{ fontSize: 45, mb: 1 }} />
-            <Typography>No books to display</Typography>
-          </Box>
+                    <Typography
+                      variant="caption"
+                      color={book.status === 'AVAILABLE' ? 'success.main' : 'warning.main'}
+                    >
+                      {book.status === 'AVAILABLE' ? 'Available' : 'Borrowed'}
+                    </Typography>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+          )}
         </CardContent>
       </Card>
+
+
     </Box>
   );
 }
