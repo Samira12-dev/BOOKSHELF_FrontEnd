@@ -19,3 +19,12 @@ export const updateBook=(id,book)=>{
 export const deleteBook=(id)=>{
     return api.delete(`/books/${id}`);
 }
+
+
+export const getBooksBorrowed =()=>{
+    return api.get(`/books/borrowedBooks`);
+}
+
+export const getAvailableBooks= ()=>{
+    return api.get(`/books/availableBooks`);
+}

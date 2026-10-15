@@ -2,12 +2,11 @@
 import { Link } from 'react-router-dom';
 import '../App.css';
 import { useEffect, useState } from 'react';
-import { deleteBook, getAllBooks, getByTitre } from '../service/Book';
+import { deleteBook, getAllBooks } from '../service/Book';
 
 export default function Books() {
 
   const [books,setBooks]= useState([]);
-  const [titre,setTitre]=useState("");
 
 
 
@@ -29,12 +28,7 @@ export default function Books() {
     })
   }
 
-  const search=(vl)=>{
-    setTitre(vl)
-    getByTitre(vl).then((res)=>{
-      setBooks(res.data)
-    })
-  }
+ 
   
 
   return (
@@ -44,10 +38,8 @@ export default function Books() {
       <div className="books-toolbar">
         <input
           type="text"
-          value={titre}
           placeholder="Search..."
           className="search-input"
-          onChange={(e)=>{search(e.target.value)}}
         />
 
         <Link to="/book/add" className="add-book-btn">
