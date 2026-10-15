@@ -19,3 +19,25 @@ export const updateBook=(id,book)=>{
 export const deleteBook=(id)=>{
     return api.delete(`/books/${id}`);
 }
+
+export const getBooksBorrowed =()=>{
+    return api.get(`/books/borrowedBooks`);
+}
+
+export const getAvailableBooks= ()=>{
+    return api.get(`/books/availableBooks`);
+}
+
+export const getByDateBetween= (start,end)=>{
+    console.log(start,end);
+    
+    return api.get(`/books/${start}/${end}`);
+}
+
+export const getByTitre=(titre)=>{
+   
+    return api.get(`/books/titre`,{
+        params:{ti:titre}
+    });
+
+}
