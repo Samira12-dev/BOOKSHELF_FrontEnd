@@ -18,7 +18,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     getAllBooks().then((res) => {
-      setBooks(res.data);
+      setBooks(res.data.content);
     }).catch((error) => {
       console.log(error);
     })
@@ -40,7 +40,7 @@ export default function Dashboard() {
     }).catch((error) => {
       console.log(error);
     })
-  })
+  },[])
 
 
  

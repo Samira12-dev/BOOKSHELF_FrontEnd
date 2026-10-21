@@ -12,7 +12,7 @@ export default function Books() {
 
   useEffect(()=>{
     getAllBooks().then((res)=>{
-      setBooks(res.data);
+      setBooks(res.data.content);
     })
     .catch((error)=>{
       console.log(error)
@@ -42,7 +42,7 @@ export default function Books() {
           className="search-input"
         />
 
-        <Link to="/book/add" className="add-book-btn">
+        <Link to="/books/add" className="add-book-btn">
           Add Book
         </Link>
       </div>
